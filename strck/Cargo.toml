@@ -11,10 +11,10 @@ repository = "https://github.com/QnnOkabayashi/strck"
 
 [dependencies.serde]
 version = "1.0"
-features = ["derive"]
 optional = true
 
 [dev-dependencies]
+serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0.82"
 smol_str = "0.1.23"
 strck_ident = { path = "../strck_ident", features = ["rust"] }
