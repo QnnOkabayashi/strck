@@ -14,7 +14,7 @@ serde = ["strck/serde"]
 rust = []
 
 [dependencies]
-strck = { version = "=0.1.0", path = "../strck" }
+strck = { version = "0.1.0", path = "../strck" }
 unicode-ident = "1.0"
 
 [dev-dependencies]
