@@ -152,17 +152,39 @@ pub struct Ck<I: Invariant> {
     slice: str,
 }
 
-/// Invariants that a string must uphold.
-///
-/// This trait blanket impls all [`FromStr`] types, where
-///
-/// [`FromStr`]: std::str::FromStr
+/// Invariant for a [`Ck`] or [`Check`].
+/// 
+/// The [`Ck`] and [`Check`] types are checked strings types that make guarantees
+/// about the contents of the string. These guarantees are determined by this
+/// trait, `Invariant` which distinguishes whether or not a string upholds some
+/// arbitrary invariants via the [`Invariant::check`] function. If the `Err` is
+/// returned, then the invariant is broken, and the `Ck` or `Check` generic over
+/// the invariant cannot be constructed.
+/// 
+/// # Examples
+/// 
+/// Declaring an invariant that the string contains no whitespace:
+/// ```rust
+/// # use strck::Invariant;
+/// struct NoWhitespace;
+/// 
+/// impl Invariant for NoWhitespace {
+///     type Error = char;
+/// 
+///     fn check(slice: &str) -> Result<(), Self::Error> {
+///         match slice.chars().find(|ch| ch.is_whitespace()) {
+///             Some(ch) => Err(ch),
+///             None => Ok(()),
+///         }
+///     }
+/// }
+/// ```
 pub trait Invariant: Sized {
     /// The type returned in the event that an invariant is broken.
     ///
     /// When formatting, `Error` should not be capitalized and should not end
     /// with a period.
-    type Error: std::error::Error;
+    type Error: fmt::Display;
 
     /// Returns `Ok` if the string upholds the invariant, otherwise `Err`.
     ///
