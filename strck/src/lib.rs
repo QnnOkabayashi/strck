@@ -153,24 +153,24 @@ pub struct Ck<I: Invariant> {
 }
 
 /// Invariant for a [`Ck`] or [`Check`].
-/// 
+///
 /// The [`Ck`] and [`Check`] types are checked strings types that make guarantees
 /// about the contents of the string. These guarantees are determined by this
 /// trait, `Invariant` which distinguishes whether or not a string upholds some
 /// arbitrary invariants via the [`Invariant::check`] function. If the `Err` is
 /// returned, then the invariant is broken, and the `Ck` or `Check` generic over
 /// the invariant cannot be constructed.
-/// 
+///
 /// # Examples
-/// 
+///
 /// Declaring an invariant that the string contains no whitespace:
 /// ```rust
 /// # use strck::Invariant;
 /// struct NoWhitespace;
-/// 
+///
 /// impl Invariant for NoWhitespace {
 ///     type Error = char;
-/// 
+///
 ///     fn check(slice: &str) -> Result<(), Self::Error> {
 ///         match slice.chars().find(|ch| ch.is_whitespace()) {
 ///             Some(ch) => Err(ch),

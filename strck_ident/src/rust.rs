@@ -55,7 +55,7 @@ pub type Ident = Ck<RustIdent>;
 /// Owned checked string containing a Rust identifier.
 ///
 /// See [`RustIdent`] for more details.
-pub type IdentBuf = Check<RustIdent>;
+pub type IdentBuf<B = String> = Check<RustIdent, B>;
 
 /// The error type returned from checking the invariants of [`RustIdent`].
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq, PartialOrd, Ord)]

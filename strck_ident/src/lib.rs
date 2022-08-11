@@ -37,4 +37,4 @@ pub use unicode::{Ident, IdentBuf};
 pub mod rust;
 
 #[doc(no_inline)]
-pub use strck::{Check, Ck, IntoCheck, IntoCk};
+pub use strck::{Check, Ck, IntoCheck, IntoCk, Invariant};

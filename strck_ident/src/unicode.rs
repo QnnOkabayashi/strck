@@ -46,7 +46,7 @@ pub type Ident = Ck<UnicodeIdent>;
 /// Owned checked string containing a Unicode identifier.
 ///
 /// See [`UnicodeIdent`] for more details.
-pub type IdentBuf = Check<UnicodeIdent>;
+pub type IdentBuf<B = String> = Check<UnicodeIdent, B>;
 
 /// The error type returned from checking invariants of [`UnicodeIdent`].
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq, PartialOrd, Ord)]
