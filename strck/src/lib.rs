@@ -127,7 +127,7 @@ mod serde;
 /// extra generics can make the type signature long.
 ///
 /// [`SmolStr`]: https://docs.rs/smol_str/latest/smol_str/struct.SmolStr.html
-#[derive(Clone, Debug)]
+#[derive(Clone)]
 #[repr(transparent)]
 pub struct Check<I: Invariant, B: AsRef<str> + 'static = String> {
     _marker: marker::PhantomData<I>,
@@ -145,7 +145,6 @@ pub struct Check<I: Invariant, B: AsRef<str> + 'static = String> {
 /// checked zero-copy deserialization.
 ///
 /// [crate-level documentation]: crate#checked-zero-copy-deserialization
-#[derive(Debug)]
 #[repr(transparent)]
 pub struct Ck<I: Invariant> {
     _marker: marker::PhantomData<I>,
@@ -276,6 +275,16 @@ impl<I: Invariant, B: AsRef<str>> Check<I, B> {
     }
 }
 
+impl<I, B> fmt::Debug for Check<I, B>
+where
+    I: Invariant,
+    B: AsRef<str> + fmt::Debug,
+{
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        fmt::Debug::fmt(&self.buf, f)
+    }
+}
+
 impl<I, B1, B2> PartialEq<Check<I, B2>> for Check<I, B1>
 where
     I: Invariant,
@@ -340,7 +349,7 @@ impl<I: Invariant, B: AsRef<str>> borrow::Borrow<Ck<I>> for Check<I, B> {
 
 impl<I: Invariant, B: AsRef<str>> fmt::Display for Check<I, B> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.pad(self.as_str())
+        fmt::Display::fmt(self.as_str(), f)
     }
 }
 
@@ -402,6 +411,12 @@ impl<I: Invariant> Ck<I> {
     }
 }
 
+impl<I: Invariant> fmt::Debug for Ck<I> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        fmt::Debug::fmt(&self.slice, f)
+    }
+}
+
 impl<I: Invariant> PartialEq for Ck<I> {
     fn eq(&self, other: &Self) -> bool {
         self.as_str() == other.as_str()
@@ -450,7 +465,7 @@ impl<I: Invariant> ToOwned for Ck<I> {
 
 impl<I: Invariant> fmt::Display for Ck<I> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.pad(self.as_str())
+        fmt::Display::fmt(self.as_str(), f)
     }
 }
 
@@ -465,5 +480,29 @@ impl<'a, I: Invariant> TryFrom<&'a str> for &'a Ck<I> {
 
     fn try_from(slice: &'a str) -> Result<Self, Self::Error> {
         Ck::from_slice(slice)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// Test invariant.
+    struct NoInvariant;
+
+    impl Invariant for NoInvariant {
+        type Error = core::convert::Infallible;
+
+        fn check(_slice: &str) -> Result<(), Self::Error> {
+            Ok(())
+        }
+    }
+
+    #[test]
+    fn test_debug_impl() {
+        let this = "this".ck::<NoInvariant>().unwrap();
+        let fmt_debug = format!("{:?}", this);
+
+        assert_eq!(fmt_debug, "\"this\"");
     }
 }
