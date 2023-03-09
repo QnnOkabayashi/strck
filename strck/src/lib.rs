@@ -505,4 +505,54 @@ mod tests {
 
         assert_eq!(fmt_debug, "\"this\"");
     }
+
+    #[test]
+    fn test_ck_partial_eq() {
+        let this = "this".ck::<NoInvariant>().unwrap();
+        let still_this = "this".ck::<NoInvariant>().unwrap();
+        let other = "other".ck::<NoInvariant>().unwrap();
+
+        // With other different instance
+        assert_ne!(this, other);
+        assert_ne!(this, &other);
+        assert_ne!(&this, other);
+        assert_ne!(&this, &other);
+
+        // With other equal instance
+        assert_eq!(this, still_this);
+        assert_eq!(this, &still_this);
+        assert_eq!(&this, still_this);
+        assert_eq!(&this, &still_this);
+
+        // With itself
+        assert_eq!(this, this);
+        assert_eq!(this, &this);
+        assert_eq!(&this, this);
+        assert_eq!(&this, &this);
+    }
+
+    #[test]
+    fn test_check_partial_eq() {
+        let this = "this".check::<NoInvariant>().unwrap();
+        let still_this = "this".check::<NoInvariant>().unwrap();
+        let other = "other".check::<NoInvariant>().unwrap();
+
+        // With other different instance
+        assert_ne!(this, other);
+        assert_ne!(this, &other);
+        assert_ne!(&this, other);
+        assert_ne!(&this, &other);
+
+        // With other equal instance
+        assert_eq!(this, still_this);
+        assert_eq!(this, &still_this);
+        assert_eq!(&this, still_this);
+        assert_eq!(&this, &still_this);
+
+        // With itself
+        assert_eq!(this, this);
+        assert_eq!(this, &this);
+        assert_eq!(&this, this);
+        assert_eq!(&this, &this);
+    }
 }
