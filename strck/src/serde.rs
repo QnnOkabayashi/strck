@@ -69,7 +69,7 @@ mod tests {
 
         fn get() -> Player<'static> {
             let ser = r#"{"username":"qnn","level":100}"#;
-            serde_json::from_str(&ser).unwrap()
+            serde_json::from_str(ser).unwrap()
         }
 
         let de = get();

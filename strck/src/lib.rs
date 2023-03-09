@@ -501,7 +501,7 @@ mod tests {
     #[test]
     fn test_debug_impl() {
         let this = "this".ck::<NoInvariant>().unwrap();
-        let fmt_debug = format!("{:?}", this);
+        let fmt_debug = format!("{this:?}");
 
         assert_eq!(fmt_debug, "\"this\"");
     }
