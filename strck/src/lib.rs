@@ -292,7 +292,7 @@ where
     B2: AsRef<str>,
 {
     fn eq(&self, other: &Check<I, B2>) -> bool {
-        self == other
+        self.as_str() == other.as_str()
     }
 }
 
