@@ -9,6 +9,10 @@
 //!
 //! Checked owned and borrowed Unicode-based identifiers.
 //!
+//! # 🚧 Deprecation Notice 🚧
+//!
+//! This crate has been merged into [`strck`] under the `ident` feature flag.
+//!
 //! # Overview
 //!
 //! [`strck`] is a crate for creating checked owned and borrowed strings with
