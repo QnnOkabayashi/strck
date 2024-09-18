@@ -132,4 +132,10 @@ mod tests {
         assert!("Москва".ck::<RustIdent>().is_ok());
         assert!("東京".ck::<RustIdent>().is_ok());
     }
+
+    #[test]
+    fn rust_keywords_fail() {
+        assert!("return".ck::<RustIdent>().is_err());
+        assert!("continued".ck::<RustIdent>().is_ok());
+    }
 }

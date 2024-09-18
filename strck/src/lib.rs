@@ -17,9 +17,10 @@
 //!
 //! This crate abstracts the idea of type-level invariants on strings by
 //! introducing the immutable [`Check`] and [`Ck`] types, where the invariants
-//! are determined by a generic [`Invariant`] type parameter. It offers the [`UnicodeIdent`](crate::ident::unicode::UnicodeIdent)
-//! `Invariant` and the [`RustIdent`](crate::ident::rust::RustIdent), which are
-//! enabled by the `ident` feature flag.
+//! are determined by a generic [`Invariant`] type parameter. It offers
+//! [`UnicodeIdent`](crate::ident::unicode::UnicodeIdent)
+//! and [`RustIdent`](crate::ident::rust::RustIdent) [`Invariant`]s,
+//! which are enabled by the `ident` feature flag.
 //!
 //! "strck" comes from "str check", similar to how rustc has typeck and
 //! borrowck for type check and borrow check respectively.
@@ -73,7 +74,7 @@
 //! ```
 //!
 //! Note that this code sample explicitly uses `Ck<UnicodeIdent>` to demonstrate
-//! that the type is a [`Ck`]. However, [`strck`] provides [`Ident`] as an
+//! that the type is a [`Ck`]. However, `strck` provides [`Ident`] as an
 //! alias for `Ck<UnicodeIdent>`, which should be used in practice.
 //!
 //! ### Infallible parsing

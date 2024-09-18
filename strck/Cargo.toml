@@ -1,6 +1,6 @@
 [package]
 name = "strck"
-version = "0.1.3"
+version = "1.0.0"
 authors = ["Quinn Okabayashi <quinnokabayashi@gmail.com>"]
 edition = "2021"
 description = "Checked owned and borrowed strings"

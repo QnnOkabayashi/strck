@@ -1,6 +1,6 @@
 [package]
 name = "strck_ident"
-version = "0.1.3"
+version = "1.0.0"
 authors = ["Quinn Okabayashi <quinnokabayashi@gmail.com>"]
 edition = "2021"
 description = "Checked owned and borrowed Unicode-based identifiers"
@@ -11,14 +11,12 @@ repository = "https://github.com/QnnOkabayashi/strck"
 
 [features]
 serde = ["strck/serde"]
-rust = []
 
 [dependencies]
-strck = { version = "0.1.3", path = "../strck" }
-unicode-ident = "1.0"
+strck = { version = "1.0.0", path = "../strck", features = ["ident"]}
 
 [dev-dependencies]
-strck_ident = { path = ".", features = ["serde", "rust"] }
+strck_ident = { path = ".", features = ["serde"] }
 
 [package.metadata.docs.rs]
 all-features = true

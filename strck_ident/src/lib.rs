@@ -11,7 +11,8 @@
 //!
 //! # 🚧 Deprecation Notice 🚧
 //!
-//! This crate has been merged into [`strck`] under the `ident` feature flag.
+//! This crate has been merged into [`strck`] under the `ident` feature flag,
+//! and now is a thin wrapper that just re-exports from it.
 //!
 //! # Overview
 //!
@@ -32,13 +33,10 @@
 //! [`Ck`]: strck::Ck
 //! [`Check`]: strck::Check
 
-pub mod unicode;
+pub use strck::ident::{rust, unicode};
 
 #[doc(no_inline)]
-pub use unicode::{Ident, IdentBuf};
-
-#[cfg(feature = "rust")]
-pub mod rust;
-
-#[doc(no_inline)]
-pub use strck::{Check, Ck, IntoCheck, IntoCk, Invariant};
+pub use strck::{
+    ident::unicode::{Ident, IdentBuf},
+    Check, Ck, IntoCheck, IntoCk, Invariant,
+};
