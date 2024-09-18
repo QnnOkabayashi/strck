@@ -9,7 +9,7 @@ and now is a thin wrapper that just re-exports from it.
 
 # Overview
 
-[`strck`] is a crate for creating checked owned and borrowed strings with
+`strck` is a crate for creating checked owned and borrowed strings with
 arbitrary invariants as the type level. This crate extends `strct` by providing
 `Invariant`s for Unicode identifiers and Rust identifiers.
 In the future, this crate may support identifiers for other languages as well.

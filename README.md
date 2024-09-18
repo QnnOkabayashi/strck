@@ -44,7 +44,7 @@ The main benefit `strck` offers is validating borrowed strings via the
 `Ck` type without having to allocate in the result.
 
 ```rust
-use strck::{Ck, IntoCk, rust::RustIdent};
+use strck::{Ck, IntoCk, ident::rust::RustIdent};
 
 let this_ident: &Ck<RustIdent> = "this".ck().unwrap();
 ```
@@ -56,7 +56,7 @@ checked zero-copy deserialization, which requires the
 `#[serde(borrow)]` attribute.
 
 ```rust
-use strck::{Ck, unicode::UnicodeIdent};
+use strck::{Ck, ident::unicode::UnicodeIdent};
 
 #[derive(Serialize, Deserialize)]
 struct Player<'a> {
@@ -84,7 +84,7 @@ scope, the `.ck()` and `.check()` functions can be used to create
 `Ck`s and `Check`s respectively:
 
 ```rust
-use strck::{IntoCheck, IntoCk, unicode::UnicodeIdent};
+use strck::{IntoCheck, IntoCk, ident::unicode::UnicodeIdent};
 
 let this_ident = "this".ck::<UnicodeIdent>().unwrap();
 let this_foo_ident = format!("{}_foo", this_ident).check::<UnicodeIdent>().unwrap();
