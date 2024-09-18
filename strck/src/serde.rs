@@ -48,7 +48,7 @@ impl<'de: 'a, 'a, I: Invariant> Deserialize<'de> for &'a Ck<I> {
     }
 }
 
-#[cfg(all(test, ident))]
+#[cfg(all(test))]
 mod tests {
     use crate::{ident::unicode::Ident, IntoCk};
     use serde::{Deserialize, Serialize};
