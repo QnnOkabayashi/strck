@@ -5,7 +5,7 @@
 //! # Examples
 //!
 //! ```rust
-//! use strck_ident::{IntoCk, rust::RustIdent};
+//! use strck::{IntoCk, ident::rust::RustIdent};
 //!
 //! assert!("foo".ck::<RustIdent>().is_ok());
 //! assert!("_identifier".ck::<RustIdent>().is_ok());
@@ -26,9 +26,8 @@
 //! # Requirements
 //!
 //! This module is only available when the `rust` feature flag is enabled.
-use crate::unicode;
+use crate::{ident::unicode, Check, Ck, Invariant};
 use core::fmt;
-use strck::{Check, Ck, Invariant};
 
 /// An [`Invariant`] for Rust identifiers.
 ///
@@ -116,7 +115,7 @@ static KEYWORDS: [&str; 51] = [
 #[cfg(test)]
 mod tests {
     use super::{Error, RustIdent};
-    use strck::IntoCk;
+    use crate::IntoCk;
 
     #[test]
     fn test_underscore() {
@@ -132,5 +131,11 @@ mod tests {
         assert!("_identifier".ck::<RustIdent>().is_ok());
         assert!("Москва".ck::<RustIdent>().is_ok());
         assert!("東京".ck::<RustIdent>().is_ok());
+    }
+
+    #[test]
+    fn rust_keywords_fail() {
+        assert!("return".ck::<RustIdent>().is_err());
+        assert!("continued".ck::<RustIdent>().is_ok());
     }
 }

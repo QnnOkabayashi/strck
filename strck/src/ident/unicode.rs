@@ -4,7 +4,7 @@
 //! # Examples
 //!
 //! ```rust
-//! use strck_ident::{IntoCk, unicode::UnicodeIdent};
+//! use strck::{IntoCk, ident::unicode::UnicodeIdent};
 //!
 //! assert!("foo".ck::<UnicodeIdent>().is_ok());
 //! assert!("struct".ck::<UnicodeIdent>().is_ok());
@@ -24,8 +24,8 @@
 //!
 //! These are also exported under the root, and can be accessed as
 //! `strck_ident::Ident` and `strck_ident::IdentBuf`.
+use crate::{Check, Ck, Invariant};
 use core::fmt;
-use strck::{Check, Ck, Invariant};
 
 /// An [`Invariant`] for unicode identifiers according to
 /// [Unicode Standard Annex #31](https://www.unicode.org/reports/tr31/).
@@ -96,7 +96,7 @@ impl Invariant for UnicodeIdent {
 #[cfg(test)]
 mod tests {
     use super::{Error, UnicodeIdent};
-    use strck::IntoCk;
+    use crate::IntoCk;
 
     #[test]
     fn test_invalid() {
